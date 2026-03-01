@@ -85,53 +85,27 @@ def json_to_ap_python(file_path):
     # Generate rules.py
     rules_code = [
         "from typing import TYPE_CHECKING\n",
-        "from .options import Toggle, LWNOptions",
-        "from worlds.generic.Rules import set_rule",
-        "from BaseClasses import CollectionState\n",
+        "from .options import Toggle, MagicPuzzleGateBehaviour, ShortcutGateBehaviour, WindRequirements, TrialKeys, Goal",
+        "from rule_builder.rules import Has, HasAny, HasAll, HasAllCounts, HasGroup, CanReachRegion",
+        "from rule_builder.options import OptionFilter\n",
         "if TYPE_CHECKING:",
         "    from . import LWNWorld\n\n",
-        "def has_fire_or_thunder(state: CollectionState, player: int) -> bool:",
-        "    return state.has_any([\"Fire\", \"Thunder\"], player)\n\n",
-        "def has_wind_or_skip(state: CollectionState, world: \"LWNWorld\") -> bool:",
-        "    return (state.has(\"Wind\", world.player) or",
-        "            world.options.wind_requirements.value == "
-        "world.options.wind_requirements.option_less_wind_requirements)",
+        "has_fire_or_thunder = HasAny(\"Fire\", \"Thunder\")",
+        "has_wind_or_skip = Has(\"Wind\") | [OptionFilter(WindRequirements, WindRequirements.option_less_wind_requirements)]",
+        "has_wind_or_damage_boost = Has(\"Wind\") | (Has(\"Fire\") & [OptionFilter(WindRequirements, WindRequirements.option_less_wind_requirements)])",
+        "has_goal_requirements = ((HasAllCounts({\"Arcane\": 5, \"Fire\": 5, \"Thunder\": 5, \"Ice\": 5})",
+        "                         & [OptionFilter(Goal, Goal.option_magic_master)])",
+        "                         | (HasAll(\"Specter Armor Soul\", \"Tania Soul\", \"Monica Soul\", \"Enraged Armor Soul\",",
+        "                                   \"Vanessa Soul\", \"Vanessa V2 Soul\") & [OptionFilter(Goal, Goal.option_boss_hunt)])",
+        "                         | [OptionFilter(Goal, Goal.option_vanilla)])",
         "\n",
-        "def has_wind_or_damage_boost(state: CollectionState, world: \"LWNWorld\") -> bool:",
-        "    return (state.has(\"Wind\", world.player) or",
-        "            (world.options.wind_requirements.value == "
-        "world.options.wind_requirements.option_less_wind_requirements and ",
-        "            state.has(\"Fire\", world.player)))",
+        "def has_barrier(barrier: str):",
+        "    return (Has(barrier, options=[OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_randomized)])",
+        "            | [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_always_open)])",
         "\n",
-        "def barriers_always_open(options: LWNOptions) -> bool:",
-        "    return options.barrier_behaviour.value == "
-        "options.barrier_behaviour.option_always_open",
-        "\n",
-        "def gates_always_open(options: LWNOptions) -> bool:",
-        "    return options.shortcut_gate_behaviour.value == "
-        "options.shortcut_gate_behaviour.option_always_open",
-        "\n",
-        "def has_attack_magic(state: CollectionState, player: int) -> bool:",
-        "    return state.has_group(\"Attack Magics\", player)",
-        "\n",
-        "def has_counter(state: CollectionState, player: int) -> bool:",
-        "    return state.has(\"Mana Absorption\", player)",
-        "\n",
-        "def has_barrier(state: CollectionState, barrier: str, world: \"LWNWorld\") -> bool:",
-        "    return state.has(barrier, world.player) or barriers_always_open(world.options)",
-        "\n",
-        "def has_gate(state: CollectionState, gate: str, world: \"LWNWorld\") -> bool:",
-        "    return state.has(gate, world.player) or gates_always_open(world.options)",
-        "\n",
-        "def has_goal_requirements(state: CollectionState, world: \"LWNWorld\") -> bool:",
-        "    return (world.options.goal.value == world.options.goal.option_vanilla",
-        "            or world.options.goal.value == world.options.goal.option_magic_master",
-        "            and state.has(\"Arcane\", world.player, 5) and state.has(\"Fire\", world.player, 5)",
-        "            and state.has(\"Ice\", world.player, 5) and state.has(\"Thunder\", world.player, 5)",
-        "            or world.options.goal.value == world.options.goal.option_boss_hunt",
-        "            and state.has(\"Specter Armor Soul\", world.player) and state.has(\"Tania Soul\", world.player)",
-        "            and state.has(\"Monica Soul\", world.player) and state.has(\"Enraged Armor Soul\", world.player)",
-        "            and state.has(\"Vanessa Soul\", world.player) and state.has(\"Vanessa V2 Soul\", world.player))",
+        "def has_gate(gate: str):",
+        "    return (Has(gate, options=[OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_randomized)])",
+        "            | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_always_open)])",
         "\n",
         "def set_region_rules(world: \"LWNWorld\") -> None:",
         "    multiworld = world.multiworld",
@@ -157,32 +131,32 @@ def json_to_ap_python(file_path):
                     if 'group' in location:
                         if location['group'] == "Barrier":
                             location_rules.append(f"    if options.barrier_behaviour.value == options.barrier_behaviour.option_randomized:")
-                            location_rules.append(f"        set_rule(multiworld.get_location(\"{location['name']}\", player),")
-                            subbed_rule = re.sub(' or ', r"\n                 or ", location['rules'])
-                            subbed_rule = re.sub(' and ', r"\n                 and ", subbed_rule)
-                            location_rules.append(f"                 lambda state: {subbed_rule})")
+                            location_rules.append(f"        world.set_rule(multiworld.get_location(\"{location['name']}\", player),")
+                            subbed_rule = re.sub(' \\| ', r"\n                 | ", location['rules'])
+                            subbed_rule = re.sub(' & ', r"\n                 & ", subbed_rule)
+                            location_rules.append(f"                 {subbed_rule})")
                         elif location['group'] == "Metal Gate":
                             location_rules.append(f"    if options.shortcut_gate_behaviour.value == options.shortcut_gate_behaviour.option_randomized:")
-                            location_rules.append(f"        set_rule(multiworld.get_location(\"{location['name']}\", player),")
-                            subbed_rule = re.sub(' or ', r"\n                 or ", location['rules'])
-                            subbed_rule = re.sub(' and ', r"\n                 and ", subbed_rule)
-                            location_rules.append(f"                 lambda state: {subbed_rule})")
+                            location_rules.append(f"        world.set_rule(multiworld.get_location(\"{location['name']}\", player),")
+                            subbed_rule = re.sub(' \\| ', r"\n                 | ", location['rules'])
+                            subbed_rule = re.sub(' & ', r"\n                 & ", subbed_rule)
+                            location_rules.append(f"                 {subbed_rule})")
                         elif location['group'] == "Lore":
                             location_rules.append(f"    if world.options.randomize_lore.value == Toggle.option_true:")
-                            location_rules.append(f"        set_rule(multiworld.get_location(\"{location['name']}\", player),")
-                            subbed_rule = re.sub(' or ', r"\n                 or ", location['rules'])
-                            subbed_rule = re.sub(' and ', r"\n                 and ", subbed_rule)
-                            location_rules.append(f"                 lambda state: {subbed_rule})")
+                            location_rules.append(f"        world.set_rule(multiworld.get_location(\"{location['name']}\", player),")
+                            subbed_rule = re.sub(' \\| ', r"\n                 | ", location['rules'])
+                            subbed_rule = re.sub(' & ', r"\n                 & ", subbed_rule)
+                            location_rules.append(f"                 {subbed_rule})")
                         else:
-                            location_rules.append(f"    set_rule(multiworld.get_location(\"{location['name']}\", player),")
-                            subbed_rule = re.sub(' or ', r"\n             or ", location['rules'])
-                            subbed_rule = re.sub(' and ', r"\n             and ", subbed_rule)
-                            location_rules.append(f"             lambda state: {subbed_rule})")
+                            location_rules.append(f"    world.set_rule(multiworld.get_location(\"{location['name']}\", player),")
+                            subbed_rule = re.sub(' \\| ', r"\n             | ", location['rules'])
+                            subbed_rule = re.sub(' & ', r"\n             & ", subbed_rule)
+                            location_rules.append(f"             {subbed_rule})")
                     else:
-                        location_rules.append(f"    set_rule(multiworld.get_location(\"{location['name']}\", player),")
-                        subbed_rule = re.sub(' or ', r"\n             or ", location['rules'])
-                        subbed_rule = re.sub(' and ', r"\n             and ", subbed_rule)
-                        location_rules.append(f"             lambda state: {subbed_rule})")
+                        location_rules.append(f"    world.set_rule(multiworld.get_location(\"{location['name']}\", player),")
+                        subbed_rule = re.sub(' \\| ', r"\n             | ", location['rules'])
+                        subbed_rule = re.sub(' & ', r"\n             & ", subbed_rule)
+                        location_rules.append(f"             {subbed_rule})")
                 if 'group' in location:
                     location_group_map[location['group']].add(location['name'])
             locations_code.append("}\n")
@@ -215,13 +189,13 @@ def json_to_ap_python(file_path):
             for region_exit in region['exits']:
                 lwn_region += f"\"{region_exit['name']}\", "
                 rule = region_exit['rules'] if isinstance(region_exit['rules'], str) else "True"
-                if rule.find(" or ") >= 0 or rule.find(" and ") >= 0:
+                if rule.find(" | ") >= 0 or rule.find(" & ") >= 0:
                     rule = "(" + rule + ")"
-                subbed_rule = re.sub(' or ', r"\n                       or ", rule)
-                subbed_rule = re.sub(' and ', r"\n                       and ", subbed_rule)
-                rules_code.append(f"    multiworld.get_entrance(\"{region['name']} -> "
-                                  f"{region_exit['name']}\", player).access_rule = \\\n"
-                                  f"        lambda state: {subbed_rule}")
+                subbed_rule = re.sub(' \\| ', r"\n                       | ", rule)
+                subbed_rule = re.sub(' & ', r"\n                       & ", subbed_rule)
+                rules_code.append(f"    world.set_rule(multiworld.get_entrance(\"{region['name']} -> "
+                                  f"{region_exit['name']}\", player),\n"
+                                  f"                   {subbed_rule})")
             lwn_region = lwn_region[:-2]
             lwn_region += "},"
         else:
