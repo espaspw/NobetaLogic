@@ -45,6 +45,7 @@ def json_to_ap_python(file_path):
         "Chest": set(),
         "Metal Gate": set(),
         "Barrier": set(),
+        "Abyss Trial": set(),
         "Teleport": set(),
         "Event": set(),
     }
@@ -61,7 +62,7 @@ def json_to_ap_python(file_path):
         "        return",
         "    elif (group_name == \"Lore\"",
         "          and world.options.randomize_lore.value"
-                                 f" == Toggle.option_false):",
+                                 f" == world.options.randomize_lore.option_no_lore):",
         "        return",
         "    region.locations.append(LWNLocation("
                                  f"world.player, location_name, location_id, region))\n\n",
@@ -85,8 +86,23 @@ def json_to_ap_python(file_path):
     # Generate rules.py
     rules_code = [
         "from typing import TYPE_CHECKING\n",
-        "from .options import Toggle, MagicPuzzleGateBehaviour, ShortcutGateBehaviour, WindRequirements, TrialKeys, Goal",
-        "from rule_builder.rules import Has, HasAny, HasAll, HasAllCounts, HasGroup, CanReachRegion",
+        "from .options import (",
+        "    Toggle,",
+        "    MagicPuzzleGateBehaviour,",
+        "    ShortcutGateBehaviour,",
+        "    WindRequirements,",
+        "    TrialKeys,",
+        "    Goal,",
+        "    AbyssTrialRequirement,",
+        "    RandomizeLore,",
+        "    BossRequirementsDifficulty,",
+        "    SkipsInLogic,",
+        "    DisableDarkTunnelThunderWall,",
+        "    DisableDarkTunnelBridgeCollapse,",
+        "    RandomizeBossSouls,",
+        "    SkippableBosses,",
+        ")",
+        "from rule_builder.rules import Has, HasAny, HasAll, HasAllCounts, HasGroup, HasGroupUnique, CanReachRegion, True_",
         "from rule_builder.options import OptionFilter\n",
         "if TYPE_CHECKING:",
         "    from . import LWNWorld\n\n",
@@ -95,9 +111,19 @@ def json_to_ap_python(file_path):
         "has_wind_or_damage_boost = Has(\"Wind\") | (Has(\"Fire\") & [OptionFilter(WindRequirements, WindRequirements.option_less_wind_requirements)])",
         "has_goal_requirements = ((HasAllCounts({\"Arcane\": 5, \"Fire\": 5, \"Thunder\": 5, \"Ice\": 5})",
         "                         & [OptionFilter(Goal, Goal.option_magic_master)])",
-        "                         | (HasAll(\"Specter Armor Soul\", \"Tania Soul\", \"Monica Soul\", \"Enraged Armor Soul\",",
-        "                                   \"Vanessa Soul\", \"Vanessa V2 Soul\") & [OptionFilter(Goal, Goal.option_boss_hunt)])",
+        "                         | (HasAll(\"Specter Armor Token\", \"Tania Token\", \"Monica Token\", \"Enraged Armor Token\",",
+        "                                   \"Vanessa Token\", \"Vanessa V2 Token\") & [OptionFilter(Goal, Goal.option_boss_hunt)])",
+        "                         | (HasGroupUnique(\"Lore\", 102) & [OptionFilter(Goal, Goal.option_lore_keeper), OptionFilter(RandomizeLore, RandomizeLore.option_vanilla)])",
+        "                         | (HasGroupUnique(\"Lore\", 103) & [OptionFilter(Goal, Goal.option_lore_keeper), OptionFilter(RandomizeLore, RandomizeLore.option_randomized)])",
         "                         | [OptionFilter(Goal, Goal.option_vanilla)])",
+        "has_abyss_trial_requirements = ((HasAllCounts({\"Arcane\": 5, \"Fire\": 5, \"Thunder\": 5, \"Ice\": 5})",
+        "                         & [OptionFilter(AbyssTrialRequirement, AbyssTrialRequirement.option_magic_master)])",
+        "                         | (HasAll(\"Specter Armor Token\", \"Tania Token\", \"Monica Token\", \"Enraged Armor Token\",",
+        "                                   \"Vanessa Token\", \"Vanessa V2 Token\") & [OptionFilter(AbyssTrialRequirement, AbyssTrialRequirement.option_boss_hunt)])",
+        "                         | (HasGroupUnique(\"Lore\", 102) & [OptionFilter(AbyssTrialRequirement, AbyssTrialRequirement.option_lore_keeper), OptionFilter(RandomizeLore, RandomizeLore.option_vanilla)])",
+        "                         | (HasGroupUnique(\"Lore\", 103) & [OptionFilter(AbyssTrialRequirement, AbyssTrialRequirement.option_lore_keeper), OptionFilter(RandomizeLore, RandomizeLore.option_randomized)])",
+        "                         | (Has(\"Abyss Underground Trial Clear\") & Has(\"Abyss Lava Ruins Trial Clear\") & Has(\"Abyss Dark Tunnel Trial Clear\") & [OptionFilter(AbyssTrialRequirement, AbyssTrialRequirement.option_randomized_item)])",
+        "                         | (Has(\"Abyss Underground Trial Clear\") & Has(\"Abyss Lava Ruins Trial Clear\") & Has(\"Abyss Dark Tunnel Trial Clear\") & [OptionFilter(AbyssTrialRequirement, AbyssTrialRequirement.option_vanilla)]))",
         "\n",
         "def has_barrier(barrier: str):",
         "    return (Has(barrier, options=[OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_randomized)])",
@@ -106,6 +132,15 @@ def json_to_ap_python(file_path):
         "def has_gate(gate: str):",
         "    return (Has(gate, options=[OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_randomized)])",
         "            | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_always_open)])",
+        "\n",
+        "barrier_vanilla = [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)]",
+        "gate_vanilla = [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]",
+        "boss_req_easy = True_() & [OptionFilter(BossRequirementsDifficulty, BossRequirementsDifficulty.option_easy)]",
+        "boss_req_normal = True_() & [OptionFilter(BossRequirementsDifficulty, BossRequirementsDifficulty.option_normal)]",
+        "boss_req_absorption = True_() & [OptionFilter(BossRequirementsDifficulty, BossRequirementsDifficulty.option_absorption_only)]",
+        "boss_req_none = True_() & [OptionFilter(BossRequirementsDifficulty, BossRequirementsDifficulty.option_no_requirements)]",
+        "boss_souls_vanilla = True_() & [OptionFilter(RandomizeBossSouls, False)]",
+        "skip_boss_enabled = True_() & [OptionFilter(SkippableBosses, True)]",
         "\n",
         "def set_region_rules(world: \"LWNWorld\") -> None:",
         "    multiworld = world.multiworld",
@@ -142,7 +177,7 @@ def json_to_ap_python(file_path):
                             subbed_rule = re.sub(' & ', r"\n                 & ", subbed_rule)
                             location_rules.append(f"                 {subbed_rule})")
                         elif location['group'] == "Lore":
-                            location_rules.append(f"    if world.options.randomize_lore.value == Toggle.option_true:")
+                            location_rules.append(f"    if world.options.randomize_lore.value != world.options.randomize_lore.option_no_lore:")
                             location_rules.append(f"        world.set_rule(multiworld.get_location(\"{location['name']}\", player),")
                             subbed_rule = re.sub(' \\| ', r"\n                 | ", location['rules'])
                             subbed_rule = re.sub(' & ', r"\n                 & ", subbed_rule)
