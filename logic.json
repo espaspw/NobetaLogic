@@ -1570,7 +1570,7 @@
                 },
                 {
                     "name": "Abyss - Trap gate",
-                    "rules": "has_gate(\"Abyss Left Trap Gate\") | gate_vanilla"
+                    "rules": "has_gate(\"Abyss Trap Gates\") | gate_vanilla"
                 }
             ],
             "locations": [
