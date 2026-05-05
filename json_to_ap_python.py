@@ -134,6 +134,7 @@ def json_to_ap_python(file_path):
         "            | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_always_open)])",
         "\n",
         "barrier_vanilla = [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)]",
+        "barrier_randomized = [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_randomized)]",
         "gate_vanilla = [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]",
         "boss_req_easy = True_() & [OptionFilter(BossRequirementsDifficulty, BossRequirementsDifficulty.option_easy)]",
         "boss_req_normal = True_() & [OptionFilter(BossRequirementsDifficulty, BossRequirementsDifficulty.option_normal)]",

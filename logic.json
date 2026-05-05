@@ -1456,7 +1456,7 @@
             "exits": [
                 {
                     "name": "Spirit Realm - After teleport",
-                    "rules": "has_barrier(\"Spirit Realm Teleporter\") | ((has_barrier(\"Spirit Realm Magic Switch Barrier\") | (has_fire_or_thunder & has_barrier(\"Spirit Realm Fire Deactivation\") | (HasAny(\"Ice\", \"Thunder\") & barrier_vanilla) | has_barrier(\"Spirit Realm Fire Deactivation\"))) & has_fire_or_thunder)"
+                    "rules": "has_barrier(\"Spirit Realm Teleporter\") | (HasAny(\"Ice\", \"Thunder\") & barrier_vanilla)"
                 },
                 {
                     "name": "Spirit Realm - After second Seal",
@@ -1474,17 +1474,17 @@
                 },
                 {
                     "name": "Spirit Realm - Fire control magic switch",
-                    "rules": "(HasAny(\"Ice\", \"Thunder\") & barrier_vanilla) | has_barrier(\"Spirit Realm Fire Deactivation\")",
+                    "rules": "(HasAny(\"Ice\", \"Thunder\") & barrier_vanilla) | (Has(\"Ice\") & barrier_randomized) | has_barrier(\"Spirit Realm Fire Deactivation\")",
                     "group": "Barrier"
                 },
                 {
                     "name": "Spirit Realm - Magic switch barrier switch",
-                    "rules": "has_barrier(\"Spirit Realm Fire Deactivation\") | (HasAny(\"Ice\", \"Thunder\") & barrier_vanilla) | has_barrier(\"Spirit Realm Fire Deactivation\")",
+                    "rules": "(HasAny(\"Ice\", \"Thunder\") & barrier_vanilla) | (Has(\"Ice\") & barrier_randomized) | has_barrier(\"Spirit Realm Fire Deactivation\")",
                     "group": "Barrier"
                 },
                 {
                     "name": "Spirit Realm - Teleporter magic switch",
-                    "rules": "has_barrier(\"Spirit Realm Magic Switch Barrier\") | (has_fire_or_thunder & has_barrier(\"Spirit Realm Fire Deactivation\") | (HasAny(\"Ice\", \"Thunder\") & barrier_vanilla) | has_barrier(\"Spirit Realm Fire Deactivation\"))",
+                    "rules": "(Has(\"Thunder\") & has_barrier(\"Spirit Realm Magic Switch Barrier\") & ((Has(\"Ice\") & barrier_randomized) | has_barrier(\"Spirit Realm Fire Deactivation\"))) | (has_fire_or_thunder & has_barrier(\"Spirit Realm Fire Deactivation\") | (HasAny(\"Ice\", \"Thunder\") & barrier_vanilla))",
                     "group": "Barrier"
                 }
             ]
