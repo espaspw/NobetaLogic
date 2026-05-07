@@ -660,10 +660,14 @@
             "exits": [
                 {
                     "name": "Lava Ruins - After scissor enemy barrier",
-                    "rules": "has_barrier(\"Lava Ruins Scissor Enemy Barrier\") | (HasGroup(\"Attack Magics\") & barrier_vanilla)"
+                    "rules": "has_barrier(\"Lava Ruins Scissor Enemy Barrier\") | barrier_vanilla"
                 },
                 {
                     "name": "Lava Ruins - Start",
+                    "rules": "True_()"
+                },
+                {
+                    "name": "Lava Ruins - Scissor Enemy Room",
                     "rules": "True_()"
                 }
             ],
@@ -691,19 +695,54 @@
                 {
                     "name": "Lava Ruins - Fake floor bait item",
                     "group": "Item"
+                }
+            ]
+        },
+        {
+            "name": "Lava Ruins - Scissor Enemy Room",
+            "exits": [
+                {
+                    "name": "Lava Ruins - After magic platforms",
+                    "rules": "has_barrier(\"Lava Ruins Scissor Enemy Lift\") | (barrier_vanilla & Has(\"Arcane\"))"
                 },
+                {
+                    "name": "Lava Ruins - After scissor enemy barrier",
+                    "rules": "has_barrier(\"Lava Ruins Scissor Enemy Barrier\") | barrier_vanilla"
+                },
+                {
+                    "name": "Lava Ruins - Lift Magic Switch Room",
+                    "rules": "has_barrier(\"Lava Ruins Scissor Enemy Barrier\") | barrier_vanilla"
+                },
+                {
+                    "name": "Lava Ruins - Scissor Enemy Battle",
+                    "rules": "True_()"
+                }
+            ],
+            "locations": [
                 {
                     "name": "Lava Ruins - 23. Cursed Turquoise Necklace from scissor enemy",
                     "group": "Lore"
-                },
+                }
+            ]
+        },
+        {
+            "name": "Lava Ruins - Scissor Enemy Battle",
+            "exits": [],
+            "locations": [
                 {
                     "name": "Lava Ruins - Defeat scissor enemy barrier",
-                    "rules": "HasGroup(\"Attack Magics\")",
+                    "rules": "True_()",
                     "group": "Barrier"
-                },
+                }
+            ]
+        },
+        {
+            "name": "Lava Ruins - Lift Magic Switch Room",
+            "exits": [],
+            "locations": [
                 {
                     "name": "Lava Ruins - Lift magic switch at scissor enemy",
-                    "rule": "Has(\"Arcane\")",
+                    "rules": "True_()",
                     "group": "Barrier"
                 }
             ]
@@ -712,24 +751,27 @@
             "name": "Lava Ruins - After scissor enemy barrier",
             "exits": [
                 {
-                    "name": "Lava Ruins - After magic platforms",
-                    "rules": "has_barrier(\"Lava Ruins Scissor Enemy Lift\")"
-                },
-                {
                     "name": "Lava Ruins - After Fire Barrier",
                     "rules": "has_barrier(\"Lava Ruins Fire Magic Barrier\") | (has_fire_or_thunder & barrier_vanilla)"
                 },
                 {
                     "name": "Lava Ruins - After Moving Ring",
                     "rules": "has_gate(\"Lava Ruins Monica Shortcut Gate\")"
+                },
+                {
+                    "name": "Lava Ruins - Scissor Enemy Room",
+                    "rules": "has_barrier(\"Lava Ruins Scissor Enemy Barrier\") | (barrier_vanilla & Has(\"Arcane\"))"
+                },
+                {
+                    "name": "Lava Ruins - Lift Magic Switch Room",
+                    "rules": "Has(\"Arcane\")"
+                },
+                {
+                    "name": "Lava Ruins - Scissor Enemy Battle",
+                    "rules": "HasAny(\"Arcane\", \"Ice\", \"Thunder\")"
                 }
             ],
             "locations": [
-                {
-                    "name": "Lava Ruins - Lift magic switch at scissor enemy",
-                    "rules": "has_barrier(\"Lava Ruins Scissor Enemy Barrier\") | Has(\"Arcane\")",
-                    "group": "Barrier"
-                },
                 {
                     "name": "Lava Ruins - 32. Slave Collar from ranged enemy in corner at spewing lava",
                     "group": "Lore"
@@ -761,6 +803,10 @@
                     "rules": "has_barrier(\"Lava Ruins Fire Magic Barrier\")"
                 },
                 {
+                    "name": "Lava Ruins - Lava Ring Activation",
+                    "rules": "True_()"
+                },
+                {
                     "name": "Lava Ruins - After Moving Ring",
                     "rules": "has_barrier(\"Lava Ruins Moving Ring\") | barrier_vanilla"
                 }
@@ -777,7 +823,13 @@
                 {
                     "name": "Lava Ruins - Chest in lava maze",
                     "group": "Chest"
-                },
+                }
+            ]
+        },
+        {
+            "name": "Lava Ruins - Lava Ring Activation",
+            "exits": [],
+            "locations": [
                 {
                     "name": "Lava Ruins - Activate moving ring",
                     "group": "Barrier"
@@ -798,6 +850,10 @@
                 {
                     "name": "Lava Ruins - Monica",
                     "rules": "has_wind_or_damage_boost"
+                },
+                {
+                    "name": "Lava Ruins - Lava Ring Activation",
+                    "rules": "True_()"
                 }
             ],
             "locations": [
@@ -817,10 +873,6 @@
                 {
                     "name": "Lava Ruins - 24. Glass Lantern from scissor enemy",
                     "group": "Lore"
-                },
-                {
-                    "name": "Lava Ruins - Activate moving ring",
-                    "group": "Barrier"
                 }
             ]
         },
