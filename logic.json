@@ -616,7 +616,7 @@
                 },
                 {
                     "name": "Lava Ruins - Path to dark tunnel",
-                    "rules": "True_() & [OptionFilter(SkipsInLogic, \"Lava Ruins Monica Skip\", \"contains\")]"
+                    "rules": "HasAny(\"Wind\", \"Fire\", \"Thunder\") & [OptionFilter(SkipsInLogic, \"Lava Ruins Monica Skip\", \"contains\")]"
                 }
             ],
             "locations": [
