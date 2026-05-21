@@ -5,7 +5,7 @@
             "exits": [
                 {
                     "name": "Shrine - After first magic switch",
-                    "rules": "has_barrier(\"Shrine First Magic Barrier\") | [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)]"
+                    "rules": "has_barrier(\"Shrine First Magic Barrier\") | barrier_vanilla"
                 }
             ],
             "locations": [
@@ -36,7 +36,7 @@
             "exits": [
                 {
                     "name": "Shrine - Cat Room",
-                    "rules": "has_barrier(\"Shrine Second Magic Barrier\") | (HasAny(\"Arcane\", \"Thunder\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "rules": "has_barrier(\"Shrine Second Magic Barrier\") | (HasAny(\"Arcane\", \"Thunder\") & barrier_vanilla)"
                 },
                 {
                     "name": "Shrine - Start",
@@ -64,7 +64,7 @@
                 },
                 {
                     "name": "Shrine - Armor Hall",
-                    "rules": "has_barrier(\"Shrine Meet Cat Magic Barrier\") | [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)]"
+                    "rules": "has_barrier(\"Shrine Meet Cat Magic Barrier\") | barrier_vanilla"
                 }
             ],
             "locations": [
@@ -79,7 +79,7 @@
             "exits": [
                 {
                     "name": "Secret passage - Start",
-                    "rules": "has_barrier(\"Secret Passage Entrance Magic Barrier\") | (has_fire_or_thunder & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "rules": "has_barrier(\"Secret Passage Entrance Magic Barrier\") | (has_fire_or_thunder & barrier_vanilla)"
                 },
                 {
                     "name": "Secret passage - After first fire barrier",
@@ -99,7 +99,7 @@
                 },
                 {
                     "name": "Underground - Start",
-                    "rules": "HasGroup(\"Attack Magics\")"
+                    "rules": "skip_boss_enabled | ((boss_souls_vanilla | Has(\"Specter Armor Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\")) | (boss_req_easy & HasGroup(\"Attack Magics\"))))"
                 }
             ],
             "locations": [
@@ -117,7 +117,7 @@
                 },
                 {
                     "name": "Shrine - Specter Armor",
-                    "rules": "HasGroup(\"Attack Magics\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Specter Armor Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\")) | (boss_req_easy & HasGroup(\"Attack Magics\")))",
                     "group": "Bosses"
                 },
                 {
@@ -132,11 +132,11 @@
             "exits": [
                 {
                     "name": "Shrine - Armor Hall",
-                    "rules": "has_gate(\"Shrine Underground Shortcut Gate\") | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]"
+                    "rules": "has_gate(\"Shrine Underground Shortcut Gate\") | gate_vanilla"
                 },
                 {
                     "name": "Underground - Shrine shortcut",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
                 }
             ],
             "locations": [
@@ -159,7 +159,7 @@
                 },
                 {
                     "name": "Secret passage - After first fire barrier",
-                    "rules": "has_barrier(\"Secret Passage First Fire Barrier\") | (has_fire_or_thunder & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "rules": "has_barrier(\"Secret Passage First Fire Barrier\") | (has_fire_or_thunder & barrier_vanilla)"
                 }
             ],
             "locations": [
@@ -199,11 +199,11 @@
                 },
                 {
                     "name": "Shrine - Armor Hall",
-                    "rules": "has_gate(\"Shrine Secret Area Shortcut Gate\") | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]"
+                    "rules": "has_gate(\"Shrine Secret Area Shortcut Gate\") | gate_vanilla"
                 },
                 {
-                    "name": "Secret Passage - Enraged Armor",
-                    "rules": "has_barrier(\"Secret Passage Second Fire Barrier\") | (has_fire_or_thunder & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "name": "Secret Passage - Before Enraged Armor",
+                    "rules": "has_barrier(\"Secret Passage Second Fire Barrier\") | (has_fire_or_thunder & barrier_vanilla)"
                 }
             ],
             "locations": [
@@ -243,40 +243,55 @@
             ]
         },
         {
-            "name": "Secret Passage - Enraged Armor",
+            "name": "Secret Passage - Before Enraged Armor",
             "exits": [
                 {
-                    "name": "Secret Passage - Boss Shortcut",
-                    "rules": "has_barrier(\"Defeat Enraged Armor Barrier\") | (HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "name": "Secret passage - After first fire barrier",
+                    "rules": "has_barrier(\"Secret Passage Second Fire Barrier\") | (has_fire_or_thunder & barrier_vanilla)"
                 },
                 {
-                    "name": "Secret passage - After first fire barrier",
-                    "rules": "has_barrier(\"Secret Passage Second Fire Barrier\")"
+                    "name": "Secret Passage - Enraged Armor",
+                    "rules": "True_()"
                 }
             ],
             "locations": [
                 {
                     "name": "Secret Passage - 19. Knight's Halberd from pot before boss",
                     "group": "Lore"
+                }
+            ]
+        },
+        {
+            "name": "Secret Passage - Enraged Armor",
+            "exits": [
+                {
+                    "name": "Secret Passage - Boss Shortcut",
+                    "rules": "has_barrier(\"Defeat Enraged Armor Barrier\") | ((boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\"))) & barrier_vanilla)"
                 },
                 {
+                    "name": "Secret Passage - Before Enraged Armor",
+                    "rules": "skip_boss_enabled | ((boss_souls_vanilla | Has(\"Enraged Armor Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\"))))"
+                }
+            ],
+            "locations": [
+                {
                     "name": "Secret Passage - Enraged Armor",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Enraged Armor Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\")))",
                     "group": "Bosses"
                 },
                 {
                     "name": "Secret Passage - 56. Knight Kingdom Crown from Enraged Armor",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Enraged Armor Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\")))",
                     "group": "Lore"
                 },
                 {
                     "name": "Secret Passage - Teleport from Enraged Armor",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Enraged Armor Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\")))",
                     "group": "Teleport"
                 },
                 {
                     "name": "Secret Passage - Defeat Enraged Armor barrier",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Enraged Armor Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\")))",
                     "group": "Barrier"
                 }
             ]
@@ -286,11 +301,11 @@
             "exits": [
                 {
                     "name": "Shrine - Armor Hall",
-                    "rules": "has_gate(\"Shrine Secret Boss Shortcut Gate\") | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]"
+                    "rules": "has_gate(\"Shrine Secret Boss Shortcut Gate\") | gate_vanilla"
                 },
                 {
                     "name": "Secret Passage - Enraged Armor",
-                    "rules": "has_barrier(\"Defeat Enraged Armor Barrier\")"
+                    "rules": "True_()"
                 }
             ],
             "locations": [
@@ -313,11 +328,11 @@
             "exits": [
                 {
                     "name": "Dark Tunnel - After bridge collapse",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
                 },
                 {
                     "name": "Secret passage - After first fire barrier",
-                    "rules": "has_gate(\"Secret Passage Dark Tunnel Shortcut Gate\") | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]"
+                    "rules": "has_gate(\"Secret Passage Dark Tunnel Shortcut Gate\") | gate_vanilla"
                 }
             ],
             "locations": [
@@ -332,7 +347,11 @@
             "exits": [
                 {
                     "name": "Underground - After wind",
-                    "rules": "lambda state: True"
+                    "rules": "Has(\"Wind\") | [OptionFilter(SkipsInLogic, \"Underground Wind Skip\", \"contains\")]"
+                },
+                {
+                    "name": "Shrine - Armor Hall",
+                    "rules": "True_()"
                 }
             ],
             "locations": [
@@ -363,11 +382,11 @@
             "exits": [
                 {
                     "name": "Underground - Grand Hall",
-                    "rules": "has_barrier(\"Underground Magic Barrier At Maid Enemy\") | (Has(\"Ice\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "rules": "has_barrier(\"Underground Magic Barrier At Maid Enemy\") | (Has(\"Ice\") & barrier_vanilla)"
                 },
                 {
                     "name": "Underground - Start",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
                 }
             ],
             "locations": [
@@ -441,15 +460,15 @@
             "exits": [
                 {
                     "name": "Underground - Grand Hall",
-                    "rules": "has_gate(\"Underground Lava Ruins Shortcut Gate\") | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]"
+                    "rules": "has_gate(\"Underground Lava Ruins Shortcut Gate\") | gate_vanilla"
                 },
                 {
                     "name": "Underground - Shrine shortcut",
-                    "rules": "has_gate(\"Underground Lava Ruins Shortcut Gate\") | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]"
+                    "rules": "has_gate(\"Underground Lava Ruins Shortcut Gate\") | gate_vanilla"
                 },
                 {
                     "name": "Lava Ruins - Path to dark tunnel",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
                 }
             ],
             "locations": [
@@ -464,7 +483,7 @@
             "exits": [
                 {
                     "name": "Underground - Grand Hall",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
                 },
                 {
                     "name": "Underground - Lava ruins shortcut",
@@ -472,7 +491,7 @@
                 },
                 {
                     "name": "Shrine - Underground shortcut",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
                 }
             ]
         },
@@ -481,7 +500,7 @@
             "exits": [
                 {
                     "name": "Underground - Grand Hall",
-                    "rules": "has_gate(\"Underground Tania Shortcut Gate On Grand Hall Side\") | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]"
+                    "rules": "has_gate(\"Underground Tania Shortcut Gate On Grand Hall Side\") | gate_vanilla"
                 },
                 {
                     "name": "Underground - Tania",
@@ -504,7 +523,7 @@
             "exits": [
                 {
                     "name": "Underground - After fire magic switch barrier",
-                    "rules": "has_barrier(\"Underground Fire Barrier Magic Barrier\") | (Has(\"Ice\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "rules": "has_barrier(\"Underground Fire Barrier Magic Barrier\") | (Has(\"Ice\") & barrier_vanilla)"
                 },
                 {
                     "name": "Underground - Grand Hall",
@@ -532,7 +551,7 @@
             "exits": [
                 {
                     "name": "Underground - Tania",
-                    "rules": "has_barrier(\"Underground Enemy Magic Barrier\") | [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)]"
+                    "rules": "has_barrier(\"Underground Enemy Magic Barrier\") | barrier_vanilla | [OptionFilter(SkipsInLogic, \"Underground Barrier Before Tania Skip\", \"contains\")]"
                 },
                 {
                     "name": "Underground - After fire",
@@ -551,22 +570,27 @@
             "exits": [
                 {
                     "name": "Underground - Tania shortcut",
-                    "rules": "has_gate(\"Underground Tania Shortcut Gate On Tania Side\") | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]"
+                    "rules": "has_gate(\"Underground Tania Shortcut Gate On Tania Side\") | gate_vanilla"
                 },
                 {
                     "name": "Underground - After fire magic switch barrier",
-                    "rules": "has_barrier(\"Underground Enemy Magic Barrier\")"
+                    "rules": "has_barrier(\"Underground Enemy Magic Barrier\") | (barrier_vanilla & HasAny(\"Arcane\", \"Thunder\", \"Fire\"))"
                 },
                 {
                     "name": "Lava Ruins - Start",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")"
+                    "rules": "(has_barrier(\"Underground Tania Arena Barrier\") | barrier_vanilla) & (skip_boss_enabled | ((boss_souls_vanilla | Has(\"Tania Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 3) & Has(\"Mana Absorption\")))))"
                 }
             ],
             "locations": [
                 {
                     "name": "Underground - Defeat Tania",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Tania Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 3) & Has(\"Mana Absorption\")))",
                     "group": "Bosses"
+                },
+                {
+                    "name": "Underground - Tania boss arena barrier",
+                    "rules": "(boss_souls_vanilla | Has(\"Tania Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 3) & Has(\"Mana Absorption\")))",
+                    "group": "Barrier"
                 },
                 {
                     "name": "Underground - Tania shortcut switch on Tania side",
@@ -574,7 +598,7 @@
                 },
                 {
                     "name": "Underground - 98. Lost Maiden's Soul Shard from Tania",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Tania Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 3) & Has(\"Mana Absorption\")))",
                     "group": "Lore"
                 }
             ]
@@ -584,11 +608,15 @@
             "exits": [
                 {
                     "name": "Lava Ruins - After magic platforms",
-                    "rules": "has_barrier(\"Lava Ruins Magic Platforms\") | has_gate(\"Lava Ruins Fake Floor Shortcut Gate\") | [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)]"
+                    "rules": "has_barrier(\"Lava Ruins Magic Platforms\") | has_gate(\"Lava Ruins Fake Floor Shortcut Gate\") | barrier_vanilla | ([OptionFilter(SkipsInLogic, \"Lava Ruins Platforms Skip\", \"contains\")] & Has(\"Wind\"))"
                 },
                 {
                     "name": "Lava Ruins - Monica warp",
                     "rules": "has_gate(\"Lava Ruins Monica Warp Gate\")"
+                },
+                {
+                    "name": "Lava Ruins - Path to dark tunnel",
+                    "rules": "HasAny(\"Wind\", \"Fire\", \"Thunder\") & [OptionFilter(SkipsInLogic, \"Lava Ruins Monica Skip\", \"contains\")]"
                 }
             ],
             "locations": [
@@ -632,11 +660,15 @@
             "exits": [
                 {
                     "name": "Lava Ruins - After scissor enemy barrier",
-                    "rules": "has_barrier(\"Lava Ruins Scissor Enemy Barrier\") | (HasGroup(\"Attack Magics\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "rules": "has_barrier(\"Lava Ruins Scissor Enemy Barrier\") | barrier_vanilla"
                 },
                 {
                     "name": "Lava Ruins - Start",
-                    "rules": "has_barrier(\"Lava Ruins Magic Platforms\") | has_gate(\"Lava Ruins Fake Floor Shortcut Gate\")"
+                    "rules": "True_()"
+                },
+                {
+                    "name": "Lava Ruins - Scissor Enemy Room",
+                    "rules": "True_()"
                 }
             ],
             "locations": [
@@ -663,14 +695,54 @@
                 {
                     "name": "Lava Ruins - Fake floor bait item",
                     "group": "Item"
+                }
+            ]
+        },
+        {
+            "name": "Lava Ruins - Scissor Enemy Room",
+            "exits": [
+                {
+                    "name": "Lava Ruins - After magic platforms",
+                    "rules": "has_barrier(\"Lava Ruins Scissor Enemy Lift\") | (barrier_vanilla & Has(\"Arcane\"))"
                 },
+                {
+                    "name": "Lava Ruins - After scissor enemy barrier",
+                    "rules": "has_barrier(\"Lava Ruins Scissor Enemy Barrier\") | barrier_vanilla"
+                },
+                {
+                    "name": "Lava Ruins - Lift Magic Switch Room",
+                    "rules": "has_barrier(\"Lava Ruins Scissor Enemy Barrier\") | barrier_vanilla"
+                },
+                {
+                    "name": "Lava Ruins - Scissor Enemy Battle",
+                    "rules": "True_()"
+                }
+            ],
+            "locations": [
                 {
                     "name": "Lava Ruins - 23. Cursed Turquoise Necklace from scissor enemy",
                     "group": "Lore"
-                },
+                }
+            ]
+        },
+        {
+            "name": "Lava Ruins - Scissor Enemy Battle",
+            "exits": [],
+            "locations": [
                 {
                     "name": "Lava Ruins - Defeat scissor enemy barrier",
-                    "rules": "HasGroup(\"Attack Magics\")",
+                    "rules": "True_()",
+                    "group": "Barrier"
+                }
+            ]
+        },
+        {
+            "name": "Lava Ruins - Lift Magic Switch Room",
+            "exits": [],
+            "locations": [
+                {
+                    "name": "Lava Ruins - Lift magic switch at scissor enemy",
+                    "rules": "True_()",
                     "group": "Barrier"
                 }
             ]
@@ -679,19 +751,27 @@
             "name": "Lava Ruins - After scissor enemy barrier",
             "exits": [
                 {
-                    "name": "Lava Ruins - After magic platforms",
-                    "rules": "has_barrier(\"Lava Ruins Scissor Enemy Lift\") | [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)]"
+                    "name": "Lava Ruins - After Fire Barrier",
+                    "rules": "has_barrier(\"Lava Ruins Fire Magic Barrier\") | (has_fire_or_thunder & barrier_vanilla)"
                 },
                 {
-                    "name": "Lava Ruins - After Fire Barrier",
-                    "rules": "has_barrier(\"Lava Ruins Fire Magic Barrier\") | has_gate(\"Lava Ruins Monica Shortcut Gate\") | (has_fire_or_thunder & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "name": "Lava Ruins - After Moving Ring",
+                    "rules": "has_gate(\"Lava Ruins Monica Shortcut Gate\")"
+                },
+                {
+                    "name": "Lava Ruins - Scissor Enemy Room",
+                    "rules": "has_barrier(\"Lava Ruins Scissor Enemy Barrier\") | (barrier_vanilla & Has(\"Arcane\"))"
+                },
+                {
+                    "name": "Lava Ruins - Lift Magic Switch Room",
+                    "rules": "Has(\"Arcane\")"
+                },
+                {
+                    "name": "Lava Ruins - Scissor Enemy Battle",
+                    "rules": "HasAny(\"Arcane\", \"Ice\", \"Thunder\")"
                 }
             ],
             "locations": [
-                {
-                    "name": "Lava Ruins - Lift magic switch at scissor enemy",
-                    "group": "Barrier"
-                },
                 {
                     "name": "Lava Ruins - 32. Slave Collar from ranged enemy in corner at spewing lava",
                     "group": "Lore"
@@ -720,11 +800,15 @@
             "exits": [
                 {
                     "name": "Lava Ruins - After scissor enemy barrier",
-                    "rules": "has_barrier(\"Lava Ruins Fire Magic Barrier\") | has_gate(\"Lava Ruins Monica Shortcut Gate\") | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]"
+                    "rules": "has_barrier(\"Lava Ruins Fire Magic Barrier\")"
                 },
                 {
-                    "name": "Lava Ruins - Monica",
-                    "rules": "has_wind_or_damage_boost"
+                    "name": "Lava Ruins - Lava Ring Activation",
+                    "rules": "True_()"
+                },
+                {
+                    "name": "Lava Ruins - After Moving Ring",
+                    "rules": "has_barrier(\"Lava Ruins Moving Ring\") | barrier_vanilla"
                 }
             ],
             "locations": [
@@ -739,7 +823,40 @@
                 {
                     "name": "Lava Ruins - Chest in lava maze",
                     "group": "Chest"
+                }
+            ]
+        },
+        {
+            "name": "Lava Ruins - Lava Ring Activation",
+            "exits": [],
+            "locations": [
+                {
+                    "name": "Lava Ruins - Activate moving ring",
+                    "group": "Barrier"
+                }
+            ]
+        },
+        {
+            "name": "Lava Ruins - After Moving Ring",
+            "exits": [
+                {
+                    "name": "Lava Ruins - After Fire Barrier",
+                    "rules": "has_barrier(\"Lava Ruins Moving Ring\") | barrier_vanilla"
                 },
+                {
+                    "name": "Lava Ruins - After scissor enemy barrier",
+                    "rules": "has_gate(\"Lava Ruins Monica Shortcut Gate\") | gate_vanilla"
+                },
+                {
+                    "name": "Lava Ruins - Monica",
+                    "rules": "has_wind_or_damage_boost"
+                },
+                {
+                    "name": "Lava Ruins - Lava Ring Activation",
+                    "rules": "True_()"
+                }
+            ],
+            "locations": [
                 {
                     "name": "Lava Ruins - Jumping puzzle arcane chest at moving ring gauntlet",
                     "rules": "Has(\"Wind\")",
@@ -764,32 +881,37 @@
             "exits": [
                 {
                     "name": "Lava Ruins - After Fire Barrier",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
                 },
                 {
                     "name": "Lava Ruins - Monica warp",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")"
+                    "rules": "(has_barrier(\"Lava Ruins Monica Arena Barrier\") | barrier_vanilla) & (boss_souls_vanilla | Has(\"Monica Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 4) & Has(\"Mana Absorption\")))"
                 }
             ],
             "locations": [
                 {
                     "name": "Lava Ruins - Monica",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Monica Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 4) & Has(\"Mana Absorption\")))",
                     "group": "Bosses"
                 },
                 {
+                    "name": "Lava Ruins - Monica boss arena barrier",
+                    "rules": "(boss_souls_vanilla | Has(\"Monica Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 4) & Has(\"Mana Absorption\")))",
+                    "group": "Barrier"
+                },
+                {
                     "name": "Lava Ruins - 34. Bestian Ear from Monica",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Monica Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 4) & Has(\"Mana Absorption\")))",
                     "group": "Lore"
                 },
                 {
                     "name": "Lava Ruins - 33. Bestian Palm from Monica",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Monica Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 4) & Has(\"Mana Absorption\")))",
                     "group": "Lore"
                 },
                 {
                     "name": "Lava Ruins - 99. Child's Soul Shard from Monica",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Monica Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 4) & Has(\"Mana Absorption\")))",
                     "group": "Lore"
                 }
             ]
@@ -799,11 +921,11 @@
             "exits": [
                 {
                     "name": "Lava Ruins - Path to dark tunnel",
-                    "rules": "has_gate(\"Lava Ruins Monica Warp Gate\") | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]"
+                    "rules": "has_gate(\"Lava Ruins Monica Warp Gate\") | gate_vanilla"
                 },
                 {
                     "name": "Lava Ruins - Start",
-                    "rules": "has_gate(\"Lava Ruins Monica Warp Gate\") | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]"
+                    "rules": "has_gate(\"Lava Ruins Monica Warp Gate\") | gate_vanilla"
                 }
             ],
             "locations": [
@@ -818,11 +940,19 @@
             "exits": [
                 {
                     "name": "Underground - Lava ruins shortcut",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
+                },
+                {
+                    "name": "Lava Ruins - Start",
+                    "rules": "True_()"
                 },
                 {
                     "name": "Dark Tunnel - Start",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
+                },
+                {
+                    "name": "Underground - Tania",
+                    "rules": "has_barrier(\"Underground Tania Arena Barrier\") | barrier_vanilla"
                 }
             ],
             "locations": [
@@ -841,11 +971,15 @@
             "exits": [
                 {
                     "name": "Dark Tunnel - After first magic barrier",
-                    "rules": "has_barrier(\"Dark Tunnel First Magic Barrier\") | [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)]"
+                    "rules": "has_barrier(\"Dark Tunnel First Magic Barrier\") | barrier_vanilla"
                 },
                 {
                     "name": "Lava Ruins - Path to dark tunnel",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
+                },
+                {
+                    "name": "Dark Tunnel - After first gate",
+                    "rules": "Has(\"Wind\") | [OptionFilter(SkipsInLogic, \"Dark Tunnel Hat Skip\", \"contains\")]"
                 }
             ],
             "locations": [
@@ -885,7 +1019,7 @@
                 },
                 {
                     "name": "Dark Tunnel - After first gate",
-                    "rules": "has_gate(\"Dark Tunnel First Gate\") | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]"
+                    "rules": "has_gate(\"Dark Tunnel First Gate\") | gate_vanilla"
                 }
             ],
             "locations": [
@@ -908,7 +1042,11 @@
                 },
                 {
                     "name": "Dark Tunnel - After light switch barrier",
-                    "rules": "has_barrier(\"Dark Tunnel Light Switch Barrier\") | [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)]"
+                    "rules": "has_barrier(\"Dark Tunnel Light Switch Barrier\") | barrier_vanilla"
+                },
+                {
+                    "name": "Dark Tunnel - Start",
+                    "rules": "True_()"
                 }
             ],
             "locations": [
@@ -947,8 +1085,8 @@
             "name": "Dark Tunnel - After light switch barrier",
             "exits": [
                 {
-                    "name": "Dark Tunnel - After thunder barrier",
-                    "rules": "has_barrier(\"Dark Tunnel Thunder Barrier\") | (Has(\"Thunder\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "name": "Dark Tunnel - Thunder barrier",
+                    "rules": "True_()"
                 },
                 {
                     "name": "Dark Tunnel - Start",
@@ -967,7 +1105,22 @@
                 {
                     "name": "Dark Tunnel - Fire spell chest inside dark maze",
                     "group": "Chest"
+                }
+            ]
+        },
+        {
+            "name": "Dark Tunnel - Thunder barrier",
+            "exits": [
+                {
+                    "name": "Dark Tunnel - After light switch barrier",
+                    "rules": "(Has(\"Thunder\") | [OptionFilter(DisableDarkTunnelThunderWall, Toggle.option_true)])"
                 },
+                {
+                    "name": "Dark Tunnel - After thunder barrier",
+                    "rules": "(has_barrier(\"Dark Tunnel Thunder Barrier\") | barrier_vanilla) & (Has(\"Thunder\") | [OptionFilter(DisableDarkTunnelThunderWall, Toggle.option_true)])"
+                }
+            ],
+            "locations": [
                 {
                     "name": "Dark Tunnel - 48. Chief's Skull from right mimic in mimic room",
                     "rules": "Has(\"Fire\")",
@@ -998,12 +1151,12 @@
             "name": "Dark Tunnel - After thunder barrier",
             "exits": [
                 {
-                    "name": "Dark Tunnel - After light switch barrier",
-                    "rules": "has_barrier(\"Dark Tunnel Thunder Barrier\")"
+                    "name": "Dark Tunnel - Thunder barrier",
+                    "rules": "has_barrier(\"Dark Tunnel Thunder Barrier\") & (Has(\"Thunder\") | [OptionFilter(DisableDarkTunnelThunderWall, Toggle.option_true)])"
                 },
                 {
                     "name": "Dark Tunnel - After floating platforms",
-                    "rules": "(has_barrier(\"Dark Tunnel Floating Platform One\") & has_barrier(\"Dark Tunnel Floating Platform Two\") & has_barrier(\"Dark Tunnel Floating Platform Three\")) | Has(\"Wind\") | (Has(\"Thunder\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "rules": "(has_barrier(\"Dark Tunnel Floating Platform One\") & has_barrier(\"Dark Tunnel Floating Platform Two\") & has_barrier(\"Dark Tunnel Floating Platform Three\")) | Has(\"Wind\") | (Has(\"Thunder\") & barrier_vanilla)"
                 }
             ],
             "locations": [
@@ -1041,11 +1194,11 @@
             "exits": [
                 {
                     "name": "Dark Tunnel - After thunder barrier",
-                    "rules": "(has_barrier(\"Dark Tunnel Floating Platform One\") & has_barrier(\"Dark Tunnel Floating Platform Two\") & has_barrier(\"Dark Tunnel Floating Platform Three\")) | Has(\"Wind\") | [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)]"
+                    "rules": "(has_barrier(\"Dark Tunnel Floating Platform One\") & has_barrier(\"Dark Tunnel Floating Platform Two\") & has_barrier(\"Dark Tunnel Floating Platform Three\")) | Has(\"Wind\") | barrier_vanilla"
                 },
                 {
                     "name": "Dark Tunnel - After bridge collapse",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
                 }
             ],
             "locations": [
@@ -1060,11 +1213,15 @@
             "exits": [
                 {
                     "name": "Spirit Realm - Start",
-                    "rules": "lambda state: True"
+                    "rules": "skip_boss_enabled | ((boss_souls_vanilla | Has(\"Vanessa Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\"))))"
                 },
                 {
                     "name": "Secret Passage - Dark Tunnel shortcut",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
+                },
+                {
+                    "name": "Dark Tunnel - After floating platforms",
+                    "rules": "True_() & [OptionFilter(DisableDarkTunnelBridgeCollapse, Toggle.option_true)]"
                 }
             ],
             "locations": [
@@ -1101,22 +1258,22 @@
                 },
                 {
                     "name": "Dark Tunnel - Vanessa",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Vanessa Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\")))",
                     "group": "Bosses"
                 },
                 {
                     "name": "Dark Tunnel - 100. King's Final Honor from Vanessa",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Vanessa Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\")))",
                     "group": "Lore"
                 },
                 {
                     "name": "Dark Tunnel - 78. Ancient Throne Rune from Vanessa",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Vanessa Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\")))",
                     "group": "Lore"
                 },
                 {
                     "name": "Dark Tunnel - 77. The Throne from Vanessa",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Vanessa Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\")))",
                     "group": "Lore"
                 }
             ]
@@ -1165,7 +1322,7 @@
             "exits": [
                 {
                     "name": "Spirit Realm - Start",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
                 },
                 {
                     "name": "Spirit Realm - After second Seal",
@@ -1173,7 +1330,7 @@
                 },
                 {
                     "name": "Spirit Realm - After arcane barrier",
-                    "rules": "has_barrier(\"Spirit Realm Arcane Barrier\") | (Has(\"Arcane\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "rules": "has_barrier(\"Spirit Realm Arcane Barrier\") | (Has(\"Wind\") & has_barrier(\"Spirit Realm Platform Shortcut\")) | (Has(\"Arcane\") & barrier_vanilla) | (Has(\"Wind\") & [OptionFilter(SkipsInLogic, \"Spirit Realm Arcane Barrier Skip\", \"contains\")])"
                 }
             ],
             "locations": [
@@ -1223,11 +1380,11 @@
             "exits": [
                 {
                     "name": "Spirit Realm - After platforms",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
                 },
                 {
                     "name": "Spirit Realm - Seal",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
                 }
             ],
             "locations": [
@@ -1255,7 +1412,7 @@
             "exits": [
                 {
                     "name": "Spirit Realm - After first Seal",
-                    "rules": "has_barrier(\"Spirit Realm First Seal Magic Barrier\") | (HasGroup(\"Attack Magics\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "rules": "has_barrier(\"Spirit Realm First Seal Magic Barrier\") | (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\")) & barrier_vanilla)"
                 }
             ],
             "locations": [
@@ -1277,7 +1434,7 @@
                 },
                 {
                     "name": "Spirit Realm - First Seal magic barrier",
-                    "rules": "HasGroup(\"Attack Magics\")",
+                    "rules": "boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\"))",
                     "group": "Barrier"
                 }
             ]
@@ -1291,7 +1448,7 @@
                 },
                 {
                     "name": "Spirit Realm - After second Seal",
-                    "rules": "has_barrier(\"Spirit Realm Second Seal Magic Barrier\") | (HasGroup(\"Attack Magics\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "rules": "has_barrier(\"Spirit Realm Second Seal Magic Barrier\") | (Has(\"Wind\") & [OptionFilter(SkipsInLogic, \"Spirit Realm Seal Barrier Skip\", \"contains\")]) | (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\")) & barrier_vanilla)"
                 }
             ],
             "locations": [
@@ -1305,7 +1462,7 @@
                 },
                 {
                     "name": "Spirit Realm - Second Seal magic barrier",
-                    "rules": "HasGroup(\"Attack Magics\")",
+                    "rules": "boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\"))",
                     "group": "Barrier"
                 }
             ]
@@ -1319,11 +1476,11 @@
                 },
                 {
                     "name": "Spirit Realm - After elevator",
-                    "rules": "has_barrier(\"Spirit Realm Elevator\") | (HasGroup(\"Attack Magics\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "rules": "has_barrier(\"Spirit Realm Elevator\") | (HasGroup(\"Attack Magics\") & barrier_vanilla) | (Has(\"Wind\") & [OptionFilter(SkipsInLogic, \"Spirit Realm Elevator Skip\", \"contains\")])"
                 },
                 {
                     "name": "Spirit Realm - After platforms",
-                    "rules": "has_gate(\"Spirit Realm Statue Shortcut Gate\") | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]"
+                    "rules": "has_gate(\"Spirit Realm Statue Shortcut Gate\") | gate_vanilla"
                 }
             ],
             "locations": [
@@ -1351,11 +1508,11 @@
             "exits": [
                 {
                     "name": "Spirit Realm - After teleport",
-                    "rules": "has_barrier(\"Spirit Realm Teleporter\") | ((has_barrier(\"Spirit Realm Magic Switch Barrier\") | (has_fire_or_thunder & has_barrier(\"Spirit Realm Fire Deactivation\") | (HasAny(\"Ice\", \"Thunder\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)]) | has_barrier(\"Spirit Realm Fire Deactivation\"))) & has_fire_or_thunder)"
+                    "rules": "has_barrier(\"Spirit Realm Teleporter\") | (HasAny(\"Ice\", \"Thunder\") & barrier_vanilla)"
                 },
                 {
                     "name": "Spirit Realm - After second Seal",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
                 }
             ],
             "locations": [
@@ -1369,17 +1526,17 @@
                 },
                 {
                     "name": "Spirit Realm - Fire control magic switch",
-                    "rules": "(HasAny(\"Ice\", \"Thunder\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)]) | has_barrier(\"Spirit Realm Fire Deactivation\")",
+                    "rules": "(HasAny(\"Ice\", \"Thunder\") & barrier_vanilla) | (Has(\"Ice\") & barrier_randomized) | has_barrier(\"Spirit Realm Fire Deactivation\")",
                     "group": "Barrier"
                 },
                 {
                     "name": "Spirit Realm - Magic switch barrier switch",
-                    "rules": "has_barrier(\"Spirit Realm Fire Deactivation\") | (HasAny(\"Ice\", \"Thunder\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)]) | has_barrier(\"Spirit Realm Fire Deactivation\")",
+                    "rules": "(HasAny(\"Ice\", \"Thunder\") & barrier_vanilla) | (Has(\"Ice\") & barrier_randomized) | has_barrier(\"Spirit Realm Fire Deactivation\")",
                     "group": "Barrier"
                 },
                 {
                     "name": "Spirit Realm - Teleporter magic switch",
-                    "rules": "has_barrier(\"Spirit Realm Magic Switch Barrier\") | (has_fire_or_thunder & has_barrier(\"Spirit Realm Fire Deactivation\") | (HasAny(\"Ice\", \"Thunder\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)]) | has_barrier(\"Spirit Realm Fire Deactivation\"))",
+                    "rules": "(Has(\"Thunder\") & has_barrier(\"Spirit Realm Magic Switch Barrier\") & ((Has(\"Ice\") & barrier_randomized) | has_barrier(\"Spirit Realm Fire Deactivation\"))) | (has_fire_or_thunder & has_barrier(\"Spirit Realm Fire Deactivation\") | (HasAny(\"Ice\", \"Thunder\") & barrier_vanilla))",
                     "group": "Barrier"
                 }
             ]
@@ -1389,11 +1546,11 @@
             "exits": [
                 {
                     "name": "Spirit Realm - After elevator",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
                 },
                 {
                     "name": "Abyss",
-                    "rules": "lambda state: True"
+                    "rules": "skip_boss_enabled | ((boss_souls_vanilla | Has(\"Vanessa V2 Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\"))))"
                 }
             ],
             "locations": [
@@ -1411,17 +1568,17 @@
                 },
                 {
                     "name": "Spirit Realm - Vanessa V2",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Vanessa V2 Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\")))",
                     "group": "Bosses"
                 },
                 {
                     "name": "Spirit Realm - 101. Proud King's Crafted Soul Shard from Vanessa V2",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Vanessa V2 Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\")))",
                     "group": "Lore"
                 },
                 {
                     "name": "Spirit Realm - Thunder spell from Vanessa V2",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "(boss_souls_vanilla | Has(\"Vanessa V2 Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\")))",
                     "group": "Item"
                 }
             ]
@@ -1431,7 +1588,7 @@
             "exits": [
                 {
                     "name": "Abyss - After first teleport",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
                 }
             ],
             "locations": [
@@ -1446,7 +1603,7 @@
             "exits": [
                 {
                     "name": "Abyss - After first gate",
-                    "rules": "has_gate(\"Abyss First Gate\") | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]"
+                    "rules": "has_gate(\"Abyss First Gate\") | gate_vanilla"
                 }
             ],
             "locations": [
@@ -1461,11 +1618,11 @@
             "exits": [
                 {
                     "name": "Abyss - After giant maid barrier",
-                    "rules": "has_barrier(\"Abyss After Giant Maid Barrier\") | (HasGroup(\"Attack Magics\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "rules": "has_barrier(\"Abyss After Giant Maid Barrier\") | (HasGroup(\"Attack Magics\") & barrier_vanilla) | (Has(\"Wind\") & [OptionFilter(SkipsInLogic, \"Abyss Giant Maid Skip\", \"contains\")])"
                 },
                 {
-                    "name": "Abyss - Left gate at trap",
-                    "rules": "has_gate(\"Abyss Left Trap Gate\") | [OptionFilter(ShortcutGateBehaviour, ShortcutGateBehaviour.option_vanilla)]"
+                    "name": "Abyss - Trap gate",
+                    "rules": "has_gate(\"Abyss Trap Gates\") | gate_vanilla"
                 }
             ],
             "locations": [
@@ -1492,26 +1649,26 @@
                     "group": "Barrier"
                 },
                 {
-                    "name": "Abyss - Left gate trigger",
+                    "name": "Abyss - Trap gate trigger",
                     "group": "Metal Gate"
                 }
             ]
         },
         {
-            "name": "Abyss - Left gate at trap",
+            "name": "Abyss - Trap gate",
             "exits": [
                 {
                     "name": "Abyss - After first gate",
-                    "rules": "has_gate(\"Abyss Left Trap Gate\")"
+                    "rules": "has_gate(\"Abyss Trap Gates\")"
                 }
             ],
             "locations": [
                 {
-                    "name": "Abyss - 82. Prostitute's Chiffon from crystal in left trap gate",
+                    "name": "Abyss - 82. Prostitute's Chiffon from crystal in trap gate",
                     "group": "Lore"
                 },
                 {
-                    "name": "Abyss - Chest in left trap gate",
+                    "name": "Abyss - Chest in trap gate",
                     "group": "Chest"
                 }
             ]
@@ -1521,7 +1678,7 @@
             "exits": [
                 {
                     "name": "Abyss - Trials Lobby",
-                    "rules": "lambda state: True"
+                    "rules": "True_()"
                 }
             ],
             "locations": [
@@ -1536,19 +1693,19 @@
             "exits": [
                 {
                     "name": "Abyss - Underground Trial",
-                    "rules": "Has(\"Trial Key\", count=3, options=[OptionFilter(TrialKeys, 1)], filtered_resolution=True)"
+                    "rules": "Has(\"Trial Key\", count=3, options=[OptionFilter(TrialKeys, Toggle.option_true)], filtered_resolution=True)"
                 },
                 {
                     "name": "Abyss - Lava Ruins Trial",
-                    "rules": "Has(\"Trial Key\", count=3, options=[OptionFilter(TrialKeys, 1)], filtered_resolution=True)"
+                    "rules": "Has(\"Trial Key\", count=3, options=[OptionFilter(TrialKeys, Toggle.option_true)], filtered_resolution=True)"
                 },
                 {
                     "name": "Abyss - Dark Tunnel Trial",
-                    "rules": "Has(\"Trial Key\", count=3, options=[OptionFilter(TrialKeys, 1)], filtered_resolution=True)"
+                    "rules": "Has(\"Trial Key\", count=3, options=[OptionFilter(TrialKeys, Toggle.option_true)], filtered_resolution=True)"
                 },
                 {
                     "name": "Abyss - Nonota",
-                    "rules": "has_goal_requirements & (has_barrier(\"Abyss Underground Trial Magic Switch\") & has_barrier(\"Abyss Lava Ruins Trial Magic Switch\") & has_barrier(\"Abyss Dark Tunnel Trial Magic Switch\") | (Has(\"Thunder\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)]))"
+                    "rules": "has_abyss_trial_requirements"
                 }
             ],
             "locations": [
@@ -1563,7 +1720,7 @@
             "exits": [
                 {
                     "name": "Abyss - Underground Trial magic switch",
-                    "rules": "has_barrier(\"Abyss After Scissor Enemy Barrier\") | (has_fire_or_thunder & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "rules": "has_barrier(\"Abyss Underground Trial Exit Barrier\") | (has_fire_or_thunder & barrier_vanilla)"
                 }
             ],
             "locations": [
@@ -1572,7 +1729,7 @@
                     "group": "Chest"
                 },
                 {
-                    "name": "Abyss - Underground trial unlock enemies magic switch",
+                    "name": "Abyss - Underground trial activate scissor enemies magic switch",
                     "rules": "has_fire_or_thunder",
                     "group": "Barrier"
                 },
@@ -1582,7 +1739,7 @@
                     "group": "Lore"
                 },
                 {
-                    "name": "Abyss - Underground trial scissor enemy magic gate",
+                    "name": "Abyss - Underground trial scissor enemy barrier",
                     "rules": "has_fire_or_thunder",
                     "group": "Barrier"
                 }
@@ -1593,7 +1750,7 @@
             "exits": [
                 {
                     "name": "Abyss - Trials Lobby",
-                    "rules": "has_barrier(\"Abyss Underground Trial Magic Switch\")"
+                    "rules": "has_barrier(\"Abyss Underground Trial Magic Switch\") | [OptionFilter(SkipsInLogic, \"Abyss Underground Trial Barrier Skip\", \"contains\")]"
                 }
             ],
             "locations": [
@@ -1601,6 +1758,11 @@
                     "name": "Abyss - Underground trial magic switch",
                     "rules": "has_fire_or_thunder",
                     "group": "Barrier"
+                },
+                {
+                    "name": "Abyss - Underground Trial Complete",
+                    "rules": "has_fire_or_thunder",
+                    "group": "Abyss Trial"
                 },
                 {
                     "name": "Abyss - 92. Semi-gaseous Soul Essence in front of underground trial magic switch",
@@ -1613,7 +1775,7 @@
             "exits": [
                 {
                     "name": "Abyss - Dark Tunnel Trial magic switch",
-                    "rules": "has_barrier(\"Abyss Dark Tunnel Trial Maid Enemy Barrier\") | (Has(\"Thunder\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "rules": "has_barrier(\"Abyss Dark Tunnel Trial Maid Enemy Barrier\") | (Has(\"Thunder\") & barrier_vanilla)"
                 }
             ],
             "locations": [
@@ -1649,6 +1811,11 @@
                     "group": "Barrier"
                 },
                 {
+                    "name": "Abyss - Dark Tunnel Trial Complete",
+                    "rules": "has_fire_or_thunder",
+                    "group": "Abyss Trial"
+                },
+                {
                     "name": "Abyss - 96. Knight's Soul Shard in front of dark tunnel trial magic switch",
                     "group": "Lore"
                 }
@@ -1659,7 +1826,7 @@
             "exits": [
                 {
                     "name": "Abyss - Lava Ruins Trial magic switch",
-                    "rules": "has_barrier(\"Abyss Lava Ruins Trial Maid Enemy Barrier\") | (HasGroup(\"Attack Magics\") & [OptionFilter(MagicPuzzleGateBehaviour, MagicPuzzleGateBehaviour.option_vanilla)])"
+                    "rules": "(has_barrier(\"Abyss Lava Ruins Trial Lower Lava\") & has_barrier(\"Abyss Lava Ruins Trial Maid Enemy Barrier\")) | (HasGroup(\"Attack Magics\") & barrier_vanilla)"
                 }
             ],
             "locations": [
@@ -1668,13 +1835,17 @@
                     "group": "Chest"
                 },
                 {
+                    "name": "Abyss - Lava Ruins trial lower lava switch",
+                    "group": "Barrier"
+                },
+                {
                     "name": "Abyss - 93. Enchanted Soul Shard from maid enemy in lava ruins trial",
-                    "rules": "has_fire_or_thunder | Has(\"Ice\")",
+                    "rules": "(has_fire_or_thunder | Has(\"Ice\")) & (has_barrier(\"Abyss Lava Ruins Trial Lower Lava\") | barrier_vanilla)",
                     "group": "Lore"
                 },
                 {
                     "name": "Abyss - Lava Ruins trial defeat maids enemy barrier",
-                    "rules": "has_fire_or_thunder | Has(\"Ice\")",
+                    "rules": "(has_fire_or_thunder | Has(\"Ice\")) & (has_barrier(\"Abyss Lava Ruins Trial Lower Lava\") | barrier_vanilla)",
                     "group": "Barrier"
                 }
             ]
@@ -1694,6 +1865,11 @@
                     "group": "Barrier"
                 },
                 {
+                    "name": "Abyss - Lava Ruins Trial Complete",
+                    "rules": "has_fire_or_thunder",
+                    "group": "Abyss Trial"
+                },
+                {
                     "name": "Abyss - 94. Knight's Soul Shard in front of lava ruins trial magic switch",
                     "group": "Lore"
                 }
@@ -1705,12 +1881,12 @@
             "locations": [
                 {
                     "name": "Abyss - 102. Lost Maiden's Crafted Soul Shard from Nonota",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "has_goal_requirements & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 7) & Has(\"Mana Absorption\")))",
                     "group": "Lore"
                 },
                 {
                     "name": "Abyss - Nonota",
-                    "rules": "HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")",
+                    "rules": "has_goal_requirements & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 7) & Has(\"Mana Absorption\")))",
                     "group": "Event"
                 }
             ]
