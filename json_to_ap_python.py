@@ -146,7 +146,6 @@ def json_to_ap_python(file_path):
         "def set_region_rules(world: \"LWNWorld\") -> None:",
         "    multiworld = world.multiworld",
         "    player = world.player",
-        "    options = world.options",
         "",
     ]
 
@@ -197,7 +196,8 @@ def json_to_ap_python(file_path):
                     location_group_map[location['group']].add(location['name'])
             locations_code.append("}\n")
             if region['name'] == "Shrine - Start" or region['name'] == "Shrine - After first magic switch" or region['name'] == "Shrine - Cat Room":
-                append_locations_code.append(f"    if world.options.starting_area == world.options.starting_area.option_shrine:")
+                append_locations_code.append(f"    if world.options.starting_area == world.options.starting_area.option_shrine\\")
+                append_locations_code.append(f"            or world.options.barrier_behaviour.value == world.options.barrier_behaviour.option_randomized:")
                 append_locations_code.append(f"        for location_name in {region_to_normalized_locations(region)}:")
                 append_locations_code.append(f"            location_id = location_name_to_id[location_name]")
                 append_locations_code.append(
