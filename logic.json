@@ -979,7 +979,7 @@
                 },
                 {
                     "name": "Dark Tunnel - After first gate",
-                    "rules": "Has(\"Wind\") | [OptionFilter(SkipsInLogic, \"Dark Tunnel Hat Skip\", \"contains\")]"
+                    "rules": "has_gate(\"Dark Tunnel First Gate\") | gate_vanilla | (Has(\"Wind\") & [OptionFilter(SkipsInLogic, \"Dark Tunnel Hat Skip\", \"contains\")])"
                 }
             ],
             "locations": [
@@ -1157,6 +1157,10 @@
                 {
                     "name": "Dark Tunnel - After floating platforms",
                     "rules": "(has_barrier(\"Dark Tunnel Floating Platform One\") & has_barrier(\"Dark Tunnel Floating Platform Two\") & has_barrier(\"Dark Tunnel Floating Platform Three\")) | Has(\"Wind\") | (Has(\"Thunder\") & barrier_vanilla)"
+                },
+                {
+                    "name": "Dark Tunnel - Floating platform switches",
+                    "rules": "Has(\"Thunder\")"
                 }
             ],
             "locations": [
@@ -1171,20 +1175,23 @@
                 {
                     "name": "Dark Tunnel - 54. Banner of the Lance Hero from lightning enemy",
                     "group": "Lore"
-                },
+                }
+            ]
+        },
+        {
+            "name": "Dark Tunnel - Floating platform switches",
+            "exits": [],
+            "locations": [
                 {
                     "name": "Dark Tunnel - Floating platform switch one",
-                    "rules": "Has(\"Thunder\") | CanReachRegion(\"Dark Tunnel - After floating platforms\")",
                     "group": "Barrier"
                 },
                 {
                     "name": "Dark Tunnel - Floating platform switch two",
-                    "rules": "Has(\"Thunder\") | CanReachRegion(\"Dark Tunnel - After floating platforms\")",
                     "group": "Barrier"
                 },
                 {
                     "name": "Dark Tunnel - Floating platform switch three",
-                    "rules": "Has(\"Thunder\") | CanReachRegion(\"Dark Tunnel - After floating platforms\")",
                     "group": "Barrier"
                 }
             ]
@@ -1198,6 +1205,10 @@
                 },
                 {
                     "name": "Dark Tunnel - After bridge collapse",
+                    "rules": "True_()"
+                },
+                {
+                    "name": "Dark Tunnel - Floating platform switches",
                     "rules": "True_()"
                 }
             ],
@@ -1412,7 +1423,7 @@
             "exits": [
                 {
                     "name": "Spirit Realm - After first Seal",
-                    "rules": "has_barrier(\"Spirit Realm First Seal Magic Barrier\") | (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\")) & barrier_vanilla)"
+                    "rules": "has_barrier(\"Spirit Realm First Seal Magic Barrier\") | ((boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\"))) & barrier_vanilla)"
                 }
             ],
             "locations": [
@@ -1448,7 +1459,7 @@
                 },
                 {
                     "name": "Spirit Realm - After second Seal",
-                    "rules": "has_barrier(\"Spirit Realm Second Seal Magic Barrier\") | (Has(\"Wind\") & [OptionFilter(SkipsInLogic, \"Spirit Realm Seal Barrier Skip\", \"contains\")]) | (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\")) & barrier_vanilla)"
+                    "rules": "has_barrier(\"Spirit Realm Second Seal Magic Barrier\") | (Has(\"Wind\") & [OptionFilter(SkipsInLogic, \"Spirit Realm Seal Barrier Skip\", \"contains\")]) | ((boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroup(\"Attack Magics\", 5) & Has(\"Mana Absorption\"))) & barrier_vanilla)"
                 }
             ],
             "locations": [
