@@ -28,6 +28,98 @@
                 {
                     "name": "Shrine - First magic switch",
                     "group": "Barrier"
+                },
+                {
+                    "name": "Shrine - Jug near first blue crystal 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug near first blue crystal 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug near first blue crystal 3",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug near first blue crystal 4",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug near first ranged enemy 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug near first ranged enemy 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug near first ranged enemy 3",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in side alcove 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in side alcove 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in first barrier room 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in first barrier room 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in first barrier room 3",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in first barrier room 4",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in first barrier room 5",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in first barrier room 6",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in first barrier room 7",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in first barrier room 8",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in first barrier room 9",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in first barrier room 10",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in first barrier room 11",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in first barrier room 12",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in first barrier room 13",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in first barrier room 14",
+                    "group": "Jug"
                 }
             ]
         },
@@ -41,6 +133,10 @@
                 {
                     "name": "Shrine - Start",
                     "rules": "has_barrier(\"Shrine First Magic Barrier\")"
+                },
+                {
+                    "name": "Shrine - Jugs before Cat Room",
+                    "rules": "(HasAny(\"Arcane\", \"Thunder\"))"
                 }
             ],
             "locations": [
@@ -52,6 +148,44 @@
                     "name": "Shrine - Second magic switch",
                     "rules": "HasAny(\"Arcane\", \"Thunder\")",
                     "group": "Barrier"
+                },
+                {
+                    "name": "Shrine - Barrel in grand gallery statue room 1",
+                    "group": "Barrel"
+                },
+                {
+                    "name": "Shrine - Barrel in grand gallery statue room 2",
+                    "group": "Barrel"
+                },
+                {
+                    "name": "Shrine - Jug near second blue crystal 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug near second blue crystal 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug near second blue crystal 3",
+                    "group": "Jug"
+                }
+            ]
+        },
+        {
+            "name": "Shrine - Jugs before Cat Room",
+            "exits": [],
+            "locations": [
+                {
+                    "name": "Shrine - Jug near second blue crystal 4",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug near second blue crystal 5",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug near second blue crystal 6",
+                    "group": "Jug"
                 }
             ]
         },
@@ -65,12 +199,50 @@
                 {
                     "name": "Shrine - Armor Hall",
                     "rules": "has_barrier(\"Shrine Meet Cat Magic Barrier\") | barrier_vanilla"
+                },
+                {
+                    "name": "Shrine - Jugs before Cat Room",
+                    "rules": "True_()"
+                },
+                {
+                    "name": "Shrine - Jug behind metal bars in Cat Room",
+                    "rules": "HasAny(\"Ice\", \"Fire\", \"Thunder\")"
                 }
             ],
             "locations": [
                 {
                     "name": "Shrine - Meet Cat barrier",
                     "group": "Barrier"
+                },
+                {
+                    "name": "Shrine - Jug in meet cat room 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in meet cat room 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in meet cat room 3",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in meet cat room 4",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug in meet cat room 5",
+                    "group": "Jug"
+                }
+            ]
+        },
+        {
+            "name": "Shrine - Jug behind metal bars in Cat Room",
+            "exits": [],
+            "locations": [
+                {
+                    "name": "Shrine - Jug in meet cat room behind bars",
+                    "group": "Jug"
                 }
             ]
         },
@@ -98,8 +270,20 @@
                     "rules": "True_()"
                 },
                 {
+                    "name": "Shrine - Jug behind metal bars in Cat Room",
+                    "rules": "True_()"
+                },
+                {
                     "name": "Underground - Start",
                     "rules": "skip_boss_enabled | ((boss_souls_vanilla | Has(\"Specter Armor Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\")) | (boss_req_easy & HasGroup(\"Attack Magics\"))))"
+                },
+                {
+                    "name": "Shrine - Jugs behind Underground shortcut gate",
+                    "rules": "HasAny(\"Ice\", \"Fire\", \"Thunder\")"
+                },
+                {
+                    "name": "Shrine - Jugs behind Secret Boss gate",
+                    "rules": "HasAny(\"Ice\", \"Fire\", \"Thunder\")"
                 }
             ],
             "locations": [
@@ -124,6 +308,40 @@
                     "name": "Shrine - Secret passage magic switch",
                     "rules": "has_fire_or_thunder",
                     "group": "Barrier"
+                },
+                {
+                    "name": "Shrine - Jug besides Grand Hall statue 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug besides Grand Hall statue 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Barrel before boss 1",
+                    "group": "Barrel"
+                },
+                {
+                    "name": "Shrine - Barrel before boss 2",
+                    "group": "Barrel"
+                },
+                {
+                    "name": "Shrine - Barrel before boss 3",
+                    "group": "Barrel"
+                }
+            ]
+        },
+        {
+            "name": "Shrine - Jugs behind Underground shortcut gate",
+            "exits": [],
+            "locations": [
+                {
+                    "name": "Shrine - Jug behind Underground shortcut gate 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug behind Underground shortcut gate 2",
+                    "group": "Jug"
                 }
             ]
         },
@@ -136,6 +354,10 @@
                 },
                 {
                     "name": "Underground - Shrine shortcut",
+                    "rules": "True_()"
+                },
+                {
+                    "name": "Shrine - Jugs behind Underground shortcut gate",
                     "rules": "True_()"
                 }
             ],
@@ -151,6 +373,20 @@
             ]
         },
         {
+            "name": "Shrine - Jugs behind Secret Boss gate",
+            "exits": [],
+            "locations": [
+                {
+                    "name": "Shrine - Jug behind Secret Boss gate 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Shrine - Jug behind Secret Boss gate 2",
+                    "group": "Jug"
+                }
+            ]
+        },
+        {
             "name": "Secret passage - Start",
             "exits": [
                 {
@@ -162,6 +398,26 @@
                 {
                     "name": "Secret Passage - 35. Dwarven Metalwork in pot after first drop",
                     "group": "Lore"
+                },
+                {
+                    "name": "Secret Passage - Jug after first drop near stairs 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug after first drop near stairs 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug after first drop near stairs 3",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug after first drop near stairs 4",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug after first drop near stairs 5",
+                    "group": "Jug"
                 }
             ]
         },
@@ -190,6 +446,58 @@
                     "name": "Secret Passage - First fire barrier magic switch",
                     "rules": "has_fire_or_thunder",
                     "group": "Barrier"
+                },
+                {
+                    "name": "Secret Passage - Jug in first fire barrier room 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in first fire barrier room 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in first fire barrier room 3",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in first fire barrier room 4",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in first fire barrier room 5",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in first fire barrier room 6",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in first fire barrier room hallway 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in first fire barrier room hallway 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in first fire barrier room hallway 3",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in first fire barrier room stairwell 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in first fire barrier room stairwell 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in first fire barrier room stairwell 3",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in first fire barrier room stairwell 4",
+                    "group": "Jug"
                 }
             ]
         },
@@ -221,6 +529,50 @@
                 {
                     "name": "Secret Passage - 38. Dark Elf's Ear Sample from pot at magic barrier",
                     "group": "Lore"
+                },
+                {
+                    "name": "Secret Passage - Jug in hallway after first fire barrier 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in hallway after first fire barrier 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in hallway after first fire barrier 3",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on first floor of second fire barrier room 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on first floor of second fire barrier room 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on first floor of second fire barrier room 3",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on first floor of second fire barrier room 4",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on first floor of second fire barrier room 5",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug besides second fire barrier 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug besides second fire barrier 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug besides second fire barrier 3",
+                    "group": "Jug"
                 }
             ]
         },
@@ -261,6 +613,98 @@
                     "name": "Secret Passage - Second fire barrier magic switch",
                     "rules": "has_fire_or_thunder",
                     "group": "Barrier"
+                },
+                {
+                    "name": "Secret Passage - Barrel near second fire barrier switch",
+                    "group": "Barrel"
+                },
+                {
+                    "name": "Secret Passage - Barrel besides secret passage statue 1",
+                    "group": "Barrel"
+                },
+                {
+                    "name": "Secret Passage - Barrel besides secret passage statue 2",
+                    "group": "Barrel"
+                },
+                {
+                    "name": "Secret Passage - Barrel besides secret passage statue 3",
+                    "group": "Barrel"
+                },
+                {
+                    "name": "Secret Passage - Jug in hallway after secret passage statue 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in hallway after secret passage statue 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug before drop to second fire barrier switch 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug before drop to second fire barrier switch 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on upper level of spiral staircase 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on upper level of spiral staircase 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on upper level of spiral staircase 3",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on upper level of spiral staircase 4",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on upper level of spiral staircase 5",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on upper level of spiral staircase 6",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on upper level of spiral staircase 7",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on lower level of spiral staircase 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on lower level of spiral staircase 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on lower level of spiral staircase 3",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on lower level of spiral staircase 4",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on lower level of spiral staircase 5",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on lower level of spiral staircase 6",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on lower level of spiral staircase 7",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug on lower level of spiral staircase 8",
+                    "group": "Jug"
                 }
             ]
         },
@@ -280,6 +724,22 @@
                 {
                     "name": "Secret Passage - 19. Knight's Halberd from pot before boss",
                     "group": "Lore"
+                },
+                {
+                    "name": "Secret Passage - Jug right before secret boss 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug right before secret boss 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Barrel right before secret boss 1",
+                    "group": "Barrel"
+                },
+                {
+                    "name": "Secret Passage - Barrel right before secret boss 2",
+                    "group": "Barrel"
                 }
             ]
         },
@@ -315,6 +775,38 @@
                     "name": "Secret Passage - Defeat Enraged Armor barrier",
                     "rules": "(boss_souls_vanilla | Has(\"Enraged Armor Soul\")) & (boss_req_none | (boss_req_absorption & Has(\"Mana Absorption\")) | (boss_req_normal & HasGroup(\"Attack Magics\") & Has(\"Mana Absorption\")) | (boss_req_easy & HasGroupUnique(\"Attack Magics\", 3) & Has(\"Mana Absorption\")))",
                     "group": "Barrier"
+                },
+                {
+                    "name": "Secret Passage - Jug in secret boss arena 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in secret boss arena 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in secret boss arena 3",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in secret boss arena 4",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in secret boss arena 5",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in secret boss arena 6",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in secret boss arena 7",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug in secret boss arena 8",
+                    "group": "Jug"
                 }
             ]
         },
@@ -327,6 +819,10 @@
                 },
                 {
                     "name": "Secret Passage - Enraged Armor",
+                    "rules": "True_()"
+                },
+                {
+                    "name": "Shrine - Jugs behind Secret Boss gate",
                     "rules": "True_()"
                 }
             ],
@@ -342,6 +838,30 @@
                 {
                     "name": "Secret Passage - 13. Sleeve Dagger",
                     "group": "Lore"
+                },
+                {
+                    "name": "Secret Passage - Jug above secret boss arena 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug above secret boss arena 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug above secret boss arena near chest 1",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug above secret boss arena near chest 2",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug above secret boss arena near chest 3",
+                    "group": "Jug"
+                },
+                {
+                    "name": "Secret Passage - Jug above secret boss arena near chest 4",
+                    "group": "Jug"
                 }
             ]
         },

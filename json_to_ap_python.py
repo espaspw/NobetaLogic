@@ -48,6 +48,9 @@ def json_to_ap_python(file_path):
         "Abyss Trial": set(),
         "Teleport": set(),
         "Event": set(),
+        "Jug": set(),
+        "Barrel": set(),
+        "Doll": set(),
     }
 
     append_locations_code = [
