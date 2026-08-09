@@ -1726,15 +1726,15 @@
             "exits": [
                 {
                     "name": "Abyss - Underground Trial",
-                    "rules": "Has(\"Trial Key\", count=3, options=[OptionFilter(TrialKeys, Toggle.option_true)], filtered_resolution=True)"
+                    "rules": "Has(\"Underground Trial Key\", options=[OptionFilter(TrialKeys, Toggle.option_true)], filtered_resolution=True)"
                 },
                 {
                     "name": "Abyss - Lava Ruins Trial",
-                    "rules": "Has(\"Trial Key\", count=3, options=[OptionFilter(TrialKeys, Toggle.option_true)], filtered_resolution=True)"
+                    "rules": "Has(\"Lava Ruins Trial Key\", options=[OptionFilter(TrialKeys, Toggle.option_true)], filtered_resolution=True)"
                 },
                 {
                     "name": "Abyss - Dark Tunnel Trial",
-                    "rules": "Has(\"Trial Key\", count=3, options=[OptionFilter(TrialKeys, Toggle.option_true)], filtered_resolution=True)"
+                    "rules": "Has(\"Dark Tunnel Trial Key\", options=[OptionFilter(TrialKeys, Toggle.option_true)], filtered_resolution=True)"
                 },
                 {
                     "name": "Abyss - Nonota",
